@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>POC</title>
+    <style>
+        body {
+            overscroll-behavior: none;
+
+            margin: 0;
+        }
+        h1 {
+            margin: 0;
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .horizontal-scroll-container {
+            overscroll-behavior: none;
+            width: 600%;
+            height: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+        .section {
+            position: relative;
+            display: block;
+            height: 100vh;
+            width: 100vw;
+        }
+        .s1 {
+            background: darkslateblue;
+        }
+        .s2 {
+            background: navy;
+        }
+        .s3 {
+            background: red;
+        }
+        .s4 {
+            background: aquamarine;
+        }
+        .s5 {
+            background: bisque;
+        }
+        .s6 {
+            background: deeppink;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div  class="section s1">
+        <h1>test section 1</h1>
+    </div>
+    <div  class="section s2">
+        <h1>test section 2</h1>
+    </div>
+<div class="horizontal-scroll-container">
+    <div class="section s3">
+        <h1>test section 3</h1>
+    </div>
+    <div class="section s4">
+        <h1>test section 4</h1>
+    </div>
+    <div  class="section s2">
+        <h1>test section 5</h1>
+    </div>
+</div>
+    <div class="section s5">
+        <h1>test section 6</h1>
+    </div>
+    <div class="section s6">
+        <h1>test section 7</h1>
+    </div>
+    <div class="section s1">
+        <h1>test section 8</h1>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js" integrity="sha512-6zTDRWNxo8vI6JZYDCwhrJpg5icK3P4HNnW3czsO5Scb3lAoPDam+/wF3eog4hxcl0h44d0XlIcFkuoSaWHQ2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js" integrity="sha512-I+JeBiUY5B5/qJ6ey5CNqJ0yhAuNHBBbRjdM3alkabxCLz3++7hbeOScVSjyRouAihQIiint6Z2Or976vU2XuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        //more details here :
+        // https://greensock.com/forums/topic/24309-scrolltrigger-horizontal-scrolling/
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        let sectionsArray = gsap.utils.toArray(".horizontal-scroll-container .section");
+
+        gsap.to(sectionsArray, {
+            xPercent: -100 * (sectionsArray.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".horizontal-scroll-container",
+                pin: true,
+                scrub: 1,
+                snap: 1 / (sectionsArray.length - 1),
+                // base vertical scrolling on how wide the container is so it feels more natural.
+                end: "+=3500",
+            }
+        });
+    </script>
+</body>
+</html>
+
